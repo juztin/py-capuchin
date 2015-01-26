@@ -40,6 +40,6 @@ Provide any feedback and issues on the `bug tracker`_, that should be coming soo
 .. _tornado: http://www.tornadoweb.org/en/stable/
 .. _requests: http://docs.python-requests.org/en/latest/
 .. _site: https://bitbucket.org/juztin/py-capuchin
-.. _the repository: https://bitbucket.org/juztin/py-capuchin
-.. _bug tracker: https://bitbucket.org/juztin/py-capuchin
+.. _the repository: https://github.com/juztin/py-capuchin
+.. _bug tracker: https://github.com/juztin/py-capuchin/issues
 .. _Python Package Index: http://pypi.python.org/pypi/capuchin
