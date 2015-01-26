@@ -33,7 +33,7 @@ some endpoint signing functions/wrappers.
 
 Here is a simple service example app::
 
-    from capuchin import Capuchin
+    import capuchin.web
 
     class TestHandler(tornado.web.RequestHandler):
             def get(self):
@@ -43,7 +43,7 @@ Here is a simple service example app::
             print("did some job")
 
     if __name__ == "__main__":
-            c = Capuchin([
+            c = capuchin.web.Application([
                     (r"/test", TestHandler),
             ])
             c.add_status_job("Test Job", 5, test_job)
@@ -55,10 +55,10 @@ import os
 import tornado.ioloop
 import tornado.web
 
-from handlers import StatusHandler, PingHandler, TimeHandler
+from capuchin.handlers import StatusHandler, PingHandler, TimeHandler
 
 
-class Capuchin(tornado.web.Application):
+class Application(tornado.web.Application):
     """tornado Application instance that auto-prepends each route
     with an endpoint set from the environment.
 
@@ -93,7 +93,7 @@ class Capuchin(tornado.web.Application):
         ]
         if handlers:
             all_handlers = all_handlers + handlers
-        super(Capuchin, self).__init__(all_handlers, **settings)
+        super(Application, self).__init__(all_handlers, **settings)
 
     def jobs(self):
         """Generator that yields each status job.
@@ -111,7 +111,7 @@ class Capuchin(tornado.web.Application):
         """Appends the given handlers to the collection.
         """
         host_handlers = prefix_handlers(self._endpoint, host_handlers)
-        super(Capuchin, self).add_handlers(host_pattern, host_handlers)
+        super(Application, self).add_handlers(host_pattern, host_handlers)
 
     # OVERRIDE
     def listen(self):
@@ -120,10 +120,10 @@ class Capuchin(tornado.web.Application):
         """
         if self.address:
             listening_on = "{}:{}".format(self.address, self.port)
-            super(Capuchin, self).listen(self.port, address=self.address)
+            super(Application, self).listen(self.port, address=self.address)
         else:
             listening_on = "port {}".format(self.port)
-            super(Capuchin, self).listen(self.port)
+            super(Application, self).listen(self.port)
         print("[capuchin] listening on " + listening_on)
         tornado.ioloop.IOLoop.instance().start()
 

@@ -1,11 +1,11 @@
-capuchin 0.0.1
+capuchin 0.0.4
 ==============
 
 Tornado server with some built-in endpoints.
 
 Here's a simple usage example::
 
-	from capuchin import Capuchin
+	import capuchin.web
 
 	class TestHandler(tornado.web.RequestHandler):
 		def get(self):
@@ -15,7 +15,7 @@ Here's a simple usage example::
 		print("did some job")
 
 	if __name__ == "__main__":
-		c = Capuchin([
+		c = capuchin.web.Application([
 			(r"/test", TestHandler),
 		])
 		c.add_status_job("Test Job", 5, test_job)

@@ -10,7 +10,7 @@ def read(fname):
 
 setup(
     name = "capuchin",
-    version = "0.0.1",
+    version = "0.0.4",
     author = "Justin Wilson",
     author_email = "justinwilson1@gmail.com",
     description = ("Simple wrapper around tornado that uses "
