@@ -9,14 +9,12 @@ from timeit import timeit
 from tornado.web import RequestHandler
 import hancock
 
-# The `expire_seconds` and `key_func` should be set
-# by the caller, or implementing library, if any
-# URL signing is to be performed.
-expire_seconds = 10
-key_func = lambda x: ""
 
-def signed_log(log_func):
-    """Same as `signed` except the given `log_func` is used in place of stdout.
+def signed(key_func, log_func=print, expire_seconds=10):
+    """Validates the signature of the request before invoking the handler.
+    If the signature fails a 401 is returned, or 406 is the signature has expired.
+
+    Logging is passed by default to stdout.
     """
     def decorator(fn):
         @functools.wraps(fn)
@@ -47,14 +45,6 @@ def signed_log(log_func):
 
         return wrapper
     return decorator
-
-def signed(handler):
-    """Validates the signature of the request before invoking the handler.
-    If the signature fails a 401 is returned, or 406 is the signature has expired.
-
-    Logging is passed by default to stdout.
-    """
-    return signed_log(print)(handler)
 
 
 class StatusHandler(RequestHandler):

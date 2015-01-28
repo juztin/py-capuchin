@@ -1,4 +1,4 @@
-capuchin 0.0.4
+capuchin 0.0.5
 ==============
 
 Tornado server with some built-in endpoints.
