@@ -12,9 +12,15 @@ import hancock
 
 def signed(key_func, log_func=print, expire_seconds=10):
     """Validates the signature of the request before invoking the handler.
-    If the signature fails a 401 is returned, or 406 is the signature has expired.
-
     Logging is passed by default to stdout.
+    If the signature fails a 401 response is sent.
+    If the signature has expired a 406 response is sent.
+
+    key_func       - A function that takes a public key as a single argument and
+                     returns the matching private key.
+    log_func       - A function taking a single argument to be logged.
+    expire_seconds - Integer of how many seconds before authorization is no
+                     longer valid.
     """
     def decorator(fn):
         @functools.wraps(fn)
@@ -71,7 +77,12 @@ class StatusHandler(RequestHandler):
 
         executor = concurrent.futures.ThreadPoolExecutor(max_workers=5)
         # This is basically calling the below within the executor:
+        #
         #     >>> timeit(job[2], number=1)
+        #
+        # job is a tuple of (name, timeout, func) so the above is really:
+        #     >>> timeit(func, number=1)
+        #
         for job, future in [(job, executor.submit(timeit, job[2], number=1)) for job in self._jobs()]:
             name, timeout, _ = job
             endpoint = {"endpoint": name}

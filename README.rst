@@ -1,4 +1,4 @@
-capuchin 0.0.5
+capuchin 0.0.6
 ==============
 
 Tornado server with some built-in endpoints.
@@ -21,6 +21,8 @@ Here's a simple usage example::
 		c.add_status_job("Test Job", 5, test_job)
 		c.listen()
 
+The Application looks at the environment variables `HOST`, `PORT`, and `ENDPOINT` on initialization.
+If These are not set the defaults are `HOST`: 0.0.0.0, `PORT`: 8080, `ENDPOINT`: /.
 
 get capuchin
 ============
@@ -29,7 +31,7 @@ Install `tornado`_ and `requests`_
 
     sudo easy_install capuchin
 
-Download the latest release from `Python Package Index`_ 
+Download the latest release from `Python Package Index`_
 or clone `the repository`_
 
 More documentation is on it's way *(check the* `site`_ *for updates)*

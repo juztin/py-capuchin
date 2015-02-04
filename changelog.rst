@@ -3,6 +3,11 @@ Changelog
 
 .. currentmodule:: capuchin
 
+Release 0.1b6
+-------------
+
+*Update* - Removed the key variable from the Application object, as it wasn't being used in this library. Added more usage documentation.
+
 Release 0.1b5
 -------------
 

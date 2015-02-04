@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 #
 # Copyright 2015 Justin Wilson. All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without modification, are
 # permitted provided that the following conditions are met:
-# 
+#
 #    1. Redistributions of source code must retain the above copyright notice, this list of
 #       conditions and the following disclaimer.
-# 
+#
 #    2. Redistributions in binary form must reproduce the above copyright notice, this list
 #       of conditions and the following disclaimer in the documentation and/or other materials
 #       provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY JUSTIN WILSON ''AS IS'' AND ANY EXPRESS OR IMPLIED
 # WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
 # FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL JUSTIN WILSON OR
@@ -21,7 +21,7 @@
 # ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# 
+#
 # The views and conclusions contained in the software and documentation are those of the
 # authors and should not be interpreted as representing official policies, either expressed
 # or implied, of Justin Wilson.
@@ -79,9 +79,8 @@ class Application(tornado.web.Application):
         except ValueError:
             self.port = 8080
 
-        # Set the host, key, and endpoint
+        # Set the host and endpoint
         self.address = os.environ.get("HOST", "0.0.0.0")
-        self.key = os.environ.get("KEY")
         self._endpoint = os.environ.get("ENDPOINT")
         self._jobs = []
 
@@ -101,10 +100,10 @@ class Application(tornado.web.Application):
         for job in self._jobs:
             yield job
 
-    def add_status_job(self, name, timeout_ms, job_func):
+    def add_status_job(self, name, timeout, job_func):
         """Adds the given status job to the collection of jobs.
         """
-        self._jobs.append((name, timeout_ms, job_func,))
+        self._jobs.append((name, timeout, job_func,))
 
     # OVERRIDE
     def add_handlers(self, host_pattern, host_handlers):
